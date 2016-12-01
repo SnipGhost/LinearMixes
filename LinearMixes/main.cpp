@@ -1,16 +1,22 @@
+#define WINVER 0x0501
+#define _WIN32_WINNT 0x0501
+#define _WIN32_WINDOWS 0x0501
+#define _WIN32_IE 0x0600
 #include <iostream>
 #include <fstream>
 using namespace std;
 int main()
 {
+	double EPS = 0.00000000000001;
 	system("chcp 1251 > nul");
-	int *keys, num, count, SIZE = 1;
+	double *keys, num;
+	int count, SIZE = 1;
 	bool *solve, ret = false;
 	cout << "¬ведите число: ";
 	cin >> num;
 	cout << "¬ведите количество чисел в массиве: ";
 	cin >> SIZE;
-	keys = new int[SIZE];
+	keys = new double[SIZE];
 	solve = new bool[SIZE];
 	cout << "¬ведите массив: ";
 	for (int i = 0; i < SIZE; ++i)
@@ -25,7 +31,7 @@ int main()
 				m = j;
 			}
 		}
-		int buf = keys[i];
+		double buf = keys[i];
 		keys[i] = keys[m];
 		keys[m] = buf;
 		cout << keys[i] << " ";
@@ -35,14 +41,14 @@ int main()
 	{
 		for (int k = 0; k < SIZE; ++k) solve[k] = false;
 		if (keys[i] > num) continue;
-		int sum = 0;
+		double sum = 0;
 		count = 0;
 		for (int j = i; j < SIZE; ++j)
 		{
 			sum += keys[j];
 			solve[j] = true;
 			count++;
-			if (sum == num) {
+			if (abs(sum - num) < EPS) {
 				ret = true; 
 				break;
 			}
