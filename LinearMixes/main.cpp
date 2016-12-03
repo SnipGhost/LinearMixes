@@ -7,6 +7,7 @@ typedef double TYPE;
 int main()
 {
 	system("chcp 1251 > nul");
+	ofstream fout("out.txt");
 	double EPS = 10;
 	TYPE *keys, num, sum;
 	unsigned SIZE = 1, count, i;
@@ -45,7 +46,7 @@ int main()
 					cout << keys[i];
 					count--;
 					if (count > 0) cout << " + ";
-					else cout << " = " << sum << endl;
+					else cout << "\n = " << sum << endl;
 				}
 			}
 		}
