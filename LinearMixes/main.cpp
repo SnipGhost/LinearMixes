@@ -1,16 +1,19 @@
 #include <iostream>
 #include <fstream>
+#include <Windows.h>
 #define GETBIT(x,pos) ( ((x) & ( 0x1 << (pos) )) !=0 )
 using namespace std;
 typedef double TYPE;
 int main()
 {
 	system("chcp 1251 > nul");
-	double EPS = 0.00000000000000001;
+	double EPS = 10;
 	TYPE *keys, num, sum;
 	unsigned SIZE = 1, count, i;
 	unsigned long int solve;
 	bool end = false;
+	cout << "Введите погрешность: ";
+	cin >> EPS;
 	cout << "Введите число: ";
 	cin >> num;
 	cout << "Введите количество чисел в массиве: ";
@@ -22,8 +25,8 @@ int main()
 	keys = new TYPE[SIZE];
 	cout << "Введите массив: ";
 	for (i = 0; i < SIZE; ++i) cin >> keys[i];
-	//---
-	for (solve = 0; solve <= pow(2, SIZE); ++solve)
+	cout << "---------------------------------------\n";
+	for (solve = 0; solve < pow(2, SIZE); ++solve)
 	{
 		count = 0;
 		sum = 0;
@@ -35,19 +38,18 @@ int main()
 				count++;
 			}
 		}
-		if (abs(sum - num) < EPS) {
+		if (fabs(sum - num) <= EPS) {
 			for (i = 0; i < SIZE; ++i) 
 			{
 				if (GETBIT(solve, i) == 1) {
 					cout << keys[i];
 					count--;
 					if (count > 0) cout << " + ";
-					else cout << " = " << num << endl;
+					else cout << " = " << sum << endl;
 				}
 			}
 		}
 	}
-	//---
 	cout << "Больше нет решений\n";
 	system("pause");
 	delete [] keys;
